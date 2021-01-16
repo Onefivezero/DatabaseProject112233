@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user
 import psycopg2
+import os
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
