@@ -50,7 +50,7 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
     
-@app.route('/devtool', METHODS = ["POST"])
+@app.route('/devtool', methods = ["POST"])
 def devtol():
     try:
         cur.execute("INSERT into courses(ID, username, password, role) VALUES (999, Mustafa, Mustafa, 1)")
