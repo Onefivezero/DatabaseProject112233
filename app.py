@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user
 import psycopg2
 
+DATABASE_URL = os.environ['DATABASE_URL']
+
 try:
-    conn = psycopg2.connect("dbname = postgres user = postgres host = localhost password = admin")
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 except:
     print("Connection failed")
     
