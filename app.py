@@ -51,7 +51,7 @@ def index():
     return render_template('index.html')
     
 @app.route('/devtool', methods = ["POST"])
-def devtol():
+def devtool():
     try:
         cur.execute("INSERT into courses(ID, username, password, role) VALUES (999, Mustafa, Mustafa, 1)")
         conn.commit()
