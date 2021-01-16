@@ -50,6 +50,16 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
     
+@app.route('/devtool', METHODS = ["POST"])
+def devtol():
+    try:
+        cur.execute("INSERT into courses(ID, username, password, role) VALUES (999, Mustafa, Mustafa, 1)")
+        conn.commit()
+    except Exception as err:
+        print(err)
+        conn.rollback()
+    return redirect('index.html')
+    
 @app.route('/add_student', methods = ["POST"])
 def add_student():
     newstudent_id = int(request.form['newstudent_id'])
@@ -64,8 +74,13 @@ def add_student():
 @app.route('/add_course', methods = ["POST"])
 def add_course():
     newcourse_crn = int(request.form['course_crn'])
-    cur.execute("INSERT into courses(CRN, name, day, num_enrolled, max_enrolled, year_req, hours, lecture_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname, newstudent_gpa, newstudent_year))
-    conn.commit()
+    newcourse_
+    try:
+        cur.execute("INSERT into courses(CRN, name, day, num_enrolled, max_enrolled, year_req, hours, lecture_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (request.form["course_crn"], request.form["course_name"],request.form["course_day"], 0, request.form["course_max"], request.form["course_yearreq"],request.form["course_hours"],request.form["course_code"],))
+        conn.commit()
+    except Exception as err:
+        print(err)
+        conn.rollback()
     return redirect('/admin')
     
 @app.route('/reset', methods = ["POST"])
