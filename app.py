@@ -179,17 +179,35 @@ def register():
         protodata = cur.fetchall()
         data = []
         for i in protodata:
-            cur.execute("SELECT name, day, hours FROM courses WHERE crn = %s", (i[0],))
-            data.append(cur.fetchone())
-        return render_template('register.html', data = data)
+            try:
+                cur.execute("SELECT name, day, hours FROM courses WHERE crn = %s", (i[0],))
+                data.append(cur.fetchone())
+            except Exception as err:
+                print(err)
+        cur.execute("SELECT * FROM queries WHERE ID = %s", (current_user.num,))
+        query_data = cur.fetchall()
+        return render_template('register.html', data = data, data2 = query_data)
         
-@app.route('/addq', methods = ["POST"])
-def addq():
+@app.route('/addquery', methods = ["POST"])
+def addquery():
     try:
         cur.execute("SELECT count(*) FROM queries WHERE id = %s", (current_user.num,))
         num = cur.fetchone()[0] + 1
-        cur.execute("INSERT into queries (crn, id, status, ord) VALUES (%s, %s, %s, %s)", (request.form['crn'], current_user.num, 0, num))
+        cur.execute("INSERT into queries (crn, id, status, ord) VALUES (%s, %s, %s, %s)", (request.form['crn_add'], current_user.num, 0, num))
         conn.commit()
+    except Exception as err:
+        print(err)
+        conn.rollback()
+    return redirect('register')
+
+@app.route('/deletequery', methods = ["POST"])
+def deletequery():
+    try:
+        cur.execute("SELECT ord FROM queries WHERE id = %s", (request.form['crn_del'],))
+        temp = cur.fetchone()
+        cur.execute("DELETE FROM queries WHERE id = %s", (request.form['crn_del'],))
+        conn.commit()
+        cur.execute("UPDATE queries SET ord = ord - 1 WHERE ord > %s", (temp,))
     except Exception as err:
         print(err)
         conn.rollback()

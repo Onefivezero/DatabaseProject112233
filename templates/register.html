@@ -37,8 +37,22 @@
                 {% endfor %}
                 </table>
         <h1> Register </h1>
-            <form action = "{{ url_for('addq') }}" method = "post">
-                CRN to be added: <input type = "text" name = "crn" /> <input type = "submit" value = "submit" />
+            <form action = "{{ url_for('addquery') }}" method = "post">
+                CRN to be added: <input type = "text" name = "crn_add" /> <input type = "submit" value = "submit" />
             </form>
+        <h1> Delete Query </h1>
+            <form action = "{{ url_for('deletequery') }}" method = "post">
+                CRN to be deleted: <input type = "text" name = "crn_del" /> <input type = "submit" value = "submit" />
+            </form>
+                <table>
+                    <tr>
+                        <td>CRN, ID, Status(True for Accepted), Order</td>
+                    </tr>   
+                    {% for item in data2 %}
+                    <tr>
+                        <td>{{item}}</td>
+                    </tr>   
+                    {% endfor %}
+                </table>
     </body>
 </html>
