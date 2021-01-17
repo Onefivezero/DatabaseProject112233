@@ -33,12 +33,14 @@
                 <p>
                     ID: <input type = "text" name = "newstudent_id" /> Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> <input type = "submit" value = "submit" />
                 </p>
+            </form>
+                <table>
                 {% for item in data %}
                     <tr>
                         <td>{{item}}</td>
                     </tr>   
                 {% endfor %}
-            </form>
+                </table>
         <h1>Add course:</h1>
             <form action = "{{ url_for('add_course') }}" method = "post">
                 <p>

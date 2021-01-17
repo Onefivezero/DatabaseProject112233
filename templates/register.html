@@ -29,11 +29,13 @@
                 {% endif %}
         </div>
         <h1> Current Program </h1>
+                <table>
                 {% for item in data %}
                     <tr>
                         <td>{{item}}</td>
                     </tr>   
                 {% endfor %}
+                </table>
         <h1> Register </h1>
             <form action = "{{ url_for('addq') }}" method = "post">
                 CRN to be added: <input type = "text" name = "crn" /> <input type = "submit" value = "submit" />
