@@ -144,7 +144,7 @@ def register():
     if current_user.is_anonymous or current_user.adminship:
         return render_template('error.html')
     else:
-        cur.execute("SELECT * FROM students WHERE ID = %s", (current_user.num,))
+        cur.execute("SELECT * FROM queries WHERE ID = %s AND status = 1", (current_user.num,))
         data = cur.fetchall()
         return render_template('register.html', data = data)
         
