@@ -137,7 +137,9 @@ def admin():
     else:
         cur.execute("SELECT * FROM students")
         student_data = cur.fetchall()
-        return render_template('admin.html', data = [student_data])
+        cur.execute("SELECT * FROM courses")
+        courses_data = cur.fetchall()
+        return render_template('admin.html', data = student_data, data2 = courses_data)
 
 @app.route('/register')
 def register():
