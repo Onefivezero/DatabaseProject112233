@@ -60,16 +60,30 @@ def devtool():
         conn.rollback()
     return redirect('/')
     
-@app.route('/delete_student', methods = ["POST"])
-def delete_course():
+@app.route('/add_student', methods = ["POST"])
+def add_student():
+    newstudent_id = int(request.form['newstudent_id'])
+    newstudent_name = str(request.form['newstudent_name'])
+    newstudent_surname = str(request.form['newstudent_surname'])
+    newstudent_gpa = float(request.form['newstudent_gpa'])
+    newstudent_year = int(request.form['newstudent_year'])
     try:
-        cur.execute("DELETE FROM courses WHERE crn = %s"), (request.form("course_del_crn"),))
+        cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
         conn.commit()
     except Exception as err:
         print(err)
         conn.rollback()
     return redirect('/admin')
-
+    
+@app.route('/delete_student', methods = ["POST"])
+def delete_student():
+    try:
+        cur.execute("DELETE FROM students WHERE id = %s", (request.form["student_del_id"],))
+    except Exception as err:
+        print(err)
+        conn.rollback()
+    return redirect('/admin')
+    
 @app.route('/add_course', methods = ["POST"])
 def add_course():
     try:
@@ -80,6 +94,15 @@ def add_course():
         conn.rollback()
     return redirect('/admin')
     
+@app.route('/delete_course', methods = ["POST"])
+def delete_course():
+    try:
+        cur.execute("DELETE FROM courses WHERE crn = %s", (request.form["course_del_crn"],))
+    except Exception as err:
+        print(err)
+        conn.rollback()
+    return redirect('/admin')
+
 @app.route('/reset', methods = ["POST"])
 def reset():    
     cur.execute("UPDATE courses SET num_enrolled = 0")
