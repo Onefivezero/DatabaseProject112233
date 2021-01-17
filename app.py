@@ -203,11 +203,11 @@ def addquery():
 @app.route('/deletequery', methods = ["POST"])
 def deletequery():
     try:
-        cur.execute("SELECT ord FROM queries WHERE id = %s", (request.form['crn_del'],))
+        cur.execute("SELECT ord FROM queries WHERE crn = %s AND id = %s", (request.form['crn_del'], current_user.num))
         temp = cur.fetchone()
-        cur.execute("DELETE FROM queries WHERE id = %s", (request.form['crn_del'],))
+        cur.execute("DELETE FROM queries WHERE crn = %s AND id = %s", (request.form['crn_del'], current_user.num))
         conn.commit()
-        cur.execute("UPDATE queries SET ord = ord - 1 WHERE ord > %s", (temp,))
+        cur.execute("UPDATE queries SET ord = ord - 1 WHERE ord > %s AND id = %s", (temp, current_user.num))
     except Exception as err:
         print(err)
         conn.rollback()
