@@ -68,6 +68,7 @@ def add_student():
     newstudent_gpa = float(request.form['newstudent_gpa'])
     newstudent_year = int(request.form['newstudent_year'])
     try:
+        cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],0))
         cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
         conn.commit()
     except Exception as err:
