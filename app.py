@@ -113,6 +113,7 @@ def finalize():
         print("HERE HERE HERE HERE HERE HERE YEAR:" + str(year))
         cur.execute("SELECT year_req FROM courses WHERE crn = %s", (crn,))
         year_req = cur.fetchone()[0]
+        print("HERE HERE HERE HERE HERE HERE req:" + str(year_req))
         condition1 = year >= year_req
         cur.execute("SELECT num_enrolled, max_enrolled FROM courses WHERE crn = %s", (crn,))
         numandmax = cur.fetchone()
