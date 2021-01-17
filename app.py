@@ -69,11 +69,15 @@ def add_student():
     newstudent_year = int(request.form['newstudent_year'])
     try:
         cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],"FALSE"))
-        cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
         conn.commit()
     except Exception as err:
         print(err)
         conn.rollback()
+    try:
+        cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
+        conn.commit()
+    except Exception as err:
+        print(err)
     return redirect('/admin')
     
 @app.route('/delete_student', methods = ["POST"])
