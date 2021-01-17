@@ -105,12 +105,12 @@ def finalize():
     time_arr = []
     for i in data:
         crn = i[0]
-        print("HERE HERE HERE HERE HERE HERE :crn" + str(crn))
         id = i[1]
         if(last_id != id):
             last_id = id
             time_arr = []
         year = i[3]
+        print("HERE HERE HERE HERE HERE HERE YEAR:" + str(year))
         cur.execute("SELECT year_req FROM courses WHERE crn = %s", (crn,))
         year_req = cur.fetchone()[0]
         condition1 = year >= year_req
