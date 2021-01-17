@@ -67,8 +67,12 @@ def add_student():
     newstudent_surname = str(request.form['newstudent_surname'])
     newstudent_gpa = float(request.form['newstudent_gpa'])
     newstudent_year = int(request.form['newstudent_year'])
-    cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
-    conn.commit()
+    try:
+        cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
+        conn.commit()
+    except Exception as err:
+        print(err)
+        conn.rollback()
     return redirect('/admin')
 
 @app.route('/add_course', methods = ["POST"])
