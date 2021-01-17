@@ -145,7 +145,11 @@ def register():
         return render_template('error.html')
     else:
         cur.execute("SELECT * FROM queries WHERE ID = %s AND status = 1", (current_user.num,))
-        data = cur.fetchall()
+        protodata = cur.fetchall()
+        data = []
+        for i in protodata:
+            cur.execute("SELECT name, day, hours FROM courses WHERE crn = %s", (i[0],))
+            data.append()
         return render_template('register.html', data = data)
         
 @app.route('/addq', methods = ["POST"])
