@@ -34,6 +34,9 @@
                     ID: <input type = "text" name = "newstudent_id" /> Username <input type = "text" name = "newstudent_username" /> Password <input type = "text" name = "newstudent_password" />
                 </p>
                 <table>
+                    <tr>
+                        <td>ID, username, password, adminship</td>
+                    </tr>   
                 {% for item in data3 %}
                     <tr>
                         <td>{{item}}</td>
@@ -45,6 +48,9 @@
                 </p>
             </form>
                 <table>
+                    <tr>
+                        <td>ID, name, surname, gpa, year</td>
+                    </tr>   
                 {% for item in data %}
                     <tr>
                         <td>{{item}}</td>

@@ -84,7 +84,7 @@ def add_student():
 def delete_student():
     try:
         cur.execute("DELETE FROM students WHERE id = %s", (request.form["student_del_id"],))
-        cur.execute("DELETE FROM users WHERE id = %s", (request.form["student_del_id"],))
+        cur.execute("DELETE FROM users WHERE id = %s AND role = FALSE", (request.form["student_del_id"],))
         conn.commit()
     except Exception as err:
         print(err)
