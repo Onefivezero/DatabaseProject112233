@@ -77,8 +77,6 @@ def add_student():
 
 @app.route('/add_course', methods = ["POST"])
 def add_course():
-    newcourse_crn = int(request.form['course_crn'])
-    newcourse_
     try:
         cur.execute("INSERT into courses(CRN, name, day, num_enrolled, max_enrolled, year_req, hours, lecture_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (request.form["course_crn"], request.form["course_name"],request.form["course_day"], 0, request.form["course_max"], request.form["course_yearreq"],request.form["course_hours"],request.form["course_code"],))
         conn.commit()
