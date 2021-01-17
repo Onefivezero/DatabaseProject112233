@@ -105,6 +105,7 @@ def finalize():
     time_arr = []
     for i in data:
         crn = i[0]
+        print("HERE HERE HERE HERE HERE HERE :crn" + str(crn))
         id = i[1]
         if(last_id != id):
             last_id = id
