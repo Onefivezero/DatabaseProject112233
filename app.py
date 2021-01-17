@@ -149,7 +149,7 @@ def register():
         data = []
         for i in protodata:
             cur.execute("SELECT name, day, hours FROM courses WHERE crn = %s", (i[0],))
-            data.append()
+            data.append(cur.fetchone())
         return render_template('register.html', data = data)
         
 @app.route('/addq', methods = ["POST"])
