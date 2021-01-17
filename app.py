@@ -53,7 +53,7 @@ def index():
 @app.route('/devtool', methods = ["POST"])
 def devtool():
     try:
-        cur.execute("CREATE TABLE if not exists users (ID INT PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR(50) UNIQUE NOT NULL, role BOOLEAN")
+        cur.execute("CREATE TABLE if not exists users (ID INT PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR(50) UNIQUE NOT NULL, role BOOLEAN)")
         cur.execute("CREATE TABLE if not exists students (ID INT PRIMARY KEY, name VARCHAR(50), surname VARCHAR(50), gpa float, year INT, CONSTRAINT fk_st FOREIGN KEY(ID) REFERENCES users(ID))")
         cur.execute("CREATE TABLE courses(CRN INT PRIMARY KEY,name VARCHAR(50) NOT NULL,day VARCHAR(10) NOT NULL,num_enrolled INT,max_enrolled INT,year_req INT,hours VARCHAR(10), lecture_code VARCHAR(10))")
         cur.execute("CREATE TABLE queries(CRN INT, ID INT, status INT, ord INT, FOREIGN KEY(ID) REFERENCES students(ID), FOREIGN KEY(CRN) REFERENCES courses(CRN), PRIMARY KEY(CRN, ID))")
