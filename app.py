@@ -110,7 +110,6 @@ def finalize():
             last_id = id
             time_arr = []
         year = i[4]
-        print(i)
         cur.execute("SELECT year_req FROM courses WHERE crn = %s", (crn,))
         year_req = cur.fetchone()[0]
         condition1 = year >= year_req
