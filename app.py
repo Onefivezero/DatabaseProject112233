@@ -62,7 +62,7 @@ def devtool():
     except Exception as err:
         print(err)
         conn.rollback()
-    return redirect('/index')
+    return redirect('/')
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
