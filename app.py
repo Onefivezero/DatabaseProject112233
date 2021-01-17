@@ -164,7 +164,7 @@ def admin():
         student_data = cur.fetchall()
         cur.execute("SELECT * FROM courses")
         courses_data = cur.fetchall()
-        cur.execute("SELECT * FROM courses")
+        cur.execute("SELECT * FROM users")
         users_data = cur.fetchall()
         return render_template('admin.html', data = student_data, data2 = courses_data, data3 = users_data)
 
