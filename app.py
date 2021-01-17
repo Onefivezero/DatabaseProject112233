@@ -79,6 +79,7 @@ def add_student():
 def delete_student():
     try:
         cur.execute("DELETE FROM students WHERE id = %s", (request.form["student_del_id"],))
+        conn.commit()
     except Exception as err:
         print(err)
         conn.rollback()
@@ -98,6 +99,7 @@ def add_course():
 def delete_course():
     try:
         cur.execute("DELETE FROM courses WHERE crn = %s", (request.form["course_del_crn"],))
+        conn.commit()
     except Exception as err:
         print(err)
         conn.rollback()
