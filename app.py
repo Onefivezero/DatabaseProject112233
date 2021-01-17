@@ -88,7 +88,7 @@ def add_course():
 @app.route('/reset', methods = ["POST"])
 def reset():    
     cur.execute("UPDATE courses SET num_enrolled = 0")
-    cur.execute("UPDATE queries SET status = 0")
+    cur.execute("DELETE FROM queries")
     conn.commit()
     return redirect('/admin')
     
