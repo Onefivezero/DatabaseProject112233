@@ -206,8 +206,8 @@ def deletequery():
         cur.execute("SELECT ord FROM queries WHERE crn = %s AND id = %s", (request.form['crn_del'], current_user.num))
         temp = cur.fetchone()
         cur.execute("DELETE FROM queries WHERE crn = %s AND id = %s", (request.form['crn_del'], current_user.num))
-        conn.commit()
         cur.execute("UPDATE queries SET ord = ord - 1 WHERE ord > %s AND id = %s", (temp, current_user.num))
+        conn.commit()
     except Exception as err:
         print(err)
         conn.rollback()
