@@ -3,6 +3,7 @@ from flask_login import UserMixin, LoginManager, login_user, current_user, logou
 import psycopg2
 import os
 
+
 DATABASE_URL = os.environ['DATABASE_URL']
 
 try:
@@ -145,7 +146,14 @@ def finalize():
         condition2 = numandmax[0] < numandmax[1]
         cur.execute("SELECT hours, day FROM courses WHERE crn = %s", (crn,))
         time = cur.fetchone()
-        condition3 = time not in time_arr
+        time_start = int(time.split("-")[0])
+        time_end = int(time.split("-")[1])
+        condition3 = True
+        for x in time_arr:
+            time2_start = int(x.split("-")[0])
+            time2_end = int(x.split("-")[1])
+            if not (time_start > time2_end or time_end < time2_start):
+                condition3 = False
         if(condition1 and condition2 and condition3):
             time_arr.append(time)
             try:
@@ -232,4 +240,5 @@ def logout():
     
     
 if __name__ == "__main__":
+    register_on = False
     app.run()
