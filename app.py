@@ -145,7 +145,7 @@ def finalize():
         numandmax = cur.fetchone()
         condition2 = numandmax[0] < numandmax[1]
         cur.execute("SELECT hours, day FROM courses WHERE crn = %s", (crn,))
-        time = cur.fetchone()
+        time = cur.fetchone()[0]
         time_start = int(time.split("-")[0])
         time_end = int(time.split("-")[1])
         condition3 = True
