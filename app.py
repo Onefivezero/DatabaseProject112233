@@ -103,6 +103,33 @@ def add_course():
         conn.rollback()
     return redirect('/admin')
     
+@app.route('/modify_course', methods = ["POST"])
+def modify_course():
+    crn = request.form["course_mod_crn"] or None
+    if crn == None:
+        return redirect('/admin')
+    name = request.form["course_mod_name"] or None
+    day = request.form["course_mod_day"] or None
+    max_enrolled = request.form["course_mod_max"] or None
+    year_req = request.form["course_mod_yearreq"] or None
+    hours = request.form["course_mod_hours"] or None
+    code = request.form["course_mod_code"] or None
+    try:
+        cur.execute("""UPDATE courses SET
+        name = COALESCE(%s, name),
+        day = COALESCE(%s, day),
+        max_enrolled = COALESCE(%s, max_enrolled),
+        year_req = COALESCE(%s, year_req),
+        hours = COALESCE(%s, hours),
+        code = COALESCE(%s, code)
+        WHERE crn = crn
+        """, (crn, name, day, max_enrolled, year_req, hours, code))
+        conn.commit()
+    except Exception as err:
+        print(err)
+        conn.rollback()
+    return redirect('/admin')
+    
 @app.route('/delete_course', methods = ["POST"])
 def delete_course():
     try:
