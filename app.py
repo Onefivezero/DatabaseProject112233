@@ -115,7 +115,7 @@ def modify_course():
     hours = request.form["course_mod_hours"] or None
     code = request.form["course_mod_code"] or None
     try:
-        cur.execute("UPDATE courses SET name = COALESCE(%s, name), day = COALESCE(%s, day), max_enrolled = COALESCE(%s, max_enrolled), year_req =  COALESCE(%s, year_req), hours = COALESCE(%s, hours), code = COALESCE(%s, code) WHERE crn = crn ", (crn, name, day, max_enrolled, year_req, hours, code,))
+        cur.execute("UPDATE courses SET name = COALESCE(%s, name), day = COALESCE(%s, day), max_enrolled = COALESCE(%s, max_enrolled), year_req =  COALESCE(%s, year_req), hours = COALESCE(%s, hours), code = COALESCE(%s, code) WHERE crn = %s ", (name, day, max_enrolled, year_req, hours, code, crn,))
         conn.commit()
     except Exception as err:
         print(err)
