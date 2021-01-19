@@ -241,7 +241,8 @@ def register():
         data = []
         for i in protodata:
             try:
-                cur.execute("SELECT name, day, hours FROM courses WHERE crn = %s", (i[0],))
+                cur.execute("SELECT name, lecture_code, day, hours FROM courses WHERE crn = %s", (i[0],))
+                data.append(i[0])
                 data.append(cur.fetchone())
             except Exception as err:
                 print(err)
