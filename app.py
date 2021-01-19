@@ -63,11 +63,11 @@ def index():
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
-    newstudent_id = int(request.form['newstudent_id' or None])
+    newstudent_id = int(request.form['newstudent_id']) if request.form['newstudent_id'] else None
     newstudent_name = request.form['newstudent_name'] or None
     newstudent_surname = request.form['newstudent_surname'] or None
-    newstudent_gpa = float(request.form['newstudent_gpa'] or None)
-    newstudent_year = int(request.form['newstudent_year'] or None)
+    newstudent_gpa = float(request.form['newstudent_gpa']) if request.form['newstudent_gpa'] else None
+    newstudent_year = int(request.form['newstudent_year'])if request.form['newstudent_year'] else None
     newstudent_username = request.form["newstudent_username"] or None
     newstudent_password = request.form["newstudent_password"] or None
     if id == None:
