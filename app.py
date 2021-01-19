@@ -176,12 +176,14 @@ def finalize():
         conn.rollback()
     last_id = 0
     time_arr = []
+    lecture_arr = []
     for i in data:
         crn = i[0]
         id = i[1]
         if(last_id != id):
             last_id = id
             time_arr = []
+            lectures_arr = []
         year = i[4]
         cur.execute("SELECT year_req FROM courses WHERE crn = %s", (crn,))
         year_req = cur.fetchone()[0]
@@ -196,13 +198,17 @@ def finalize():
         time_end = int(time.split("-")[1])
         day = time_day[1]
         condition3 = True
+        cur.execute("SELECT name FROM courses where crn = %s", (crn,))
+        lecture = cur.fetchone()[0]
+        condition4 = lecture in lecture_arr
         for x in time_arr:
             time2_start = int(x[0].split("-")[0])
             time2_end = int(x[0].split("-")[1])
             if (x[1] == day) and (not (time_start > time2_end or time_end < time2_start)):
                 condition3 = False
-        if(condition1 and condition2 and condition3):
+        if(condition1 and condition2 and condition3 and condition4):
             time_arr.append(time_day)
+            lecture_arr.append(lecture)
             try:
                 cur.execute("UPDATE courses SET num_enrolled = num_enrolled + 1 WHERE crn = %s", (crn,))
                 cur.execute("UPDATE queries SET status = 1 WHERE crn = %s AND id = %s", (crn, id))
