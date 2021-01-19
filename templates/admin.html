@@ -107,7 +107,8 @@
                         <th>day</th>
                         <th>num_enrolled</th>
                         <th>max_enrolled</th>
-                        <th>year_req, hours</th>
+                        <th>year_req</th>
+                        <th>hours</th>
                         <th>lecture_code</th>
                     </tr>   
                     {% for item in data2 %}
@@ -119,6 +120,7 @@
                         <td>{{item[4]}}</td>
                         <td>{{item[5]}}</td>
                         <td>{{item[6]}}</td>
+                        <td>{{item[7]}}</td>
                     </tr>   
                     {% endfor %}
                 </table>
