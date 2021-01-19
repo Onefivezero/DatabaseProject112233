@@ -83,7 +83,7 @@ def add_student():
        
 @app.route('/modify_student', methods = ["POST"])
 def modify_student():
-    id = request.form["student_mod_crn"] or None
+    id = request.form["student_mod_id"] or None
     if id == None:
         return redirect('/admin')
     name = request.form["student_mod_name"] or None
