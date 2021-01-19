@@ -148,11 +148,11 @@ def add_course():
     
 @app.route('/delete_course', methods = ["POST"])
 def delete_course():
+    print("HERE YOU DIMWIT "+request.form["course_del_crn"])
     try:
         cur.execute("DELETE FROM courses WHERE crn = %s", (request.form["course_del_crn"],))
         conn.commit()
     except Exception as err:
-        print("HERE YOU DIMWIT "+request.form["course_del_crn"])
         print(err)
         conn.rollback()
     return redirect('/admin')
