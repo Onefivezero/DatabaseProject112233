@@ -81,11 +81,13 @@ def add_mod_student():
             cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (newstudent_id, newstudent_username, newstudent_password, "FALSE",))
         except Exception as err:
             print(err)
+            conn.rollback()
         try:
             cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year),)
             conn.commit()
         except Exception as err:
             print(err)
+            conn.rollback()
     else:
         try:
             cur.execute("UPDATE users SET username = COALESCE(%s, username), password = COALESCE(%s, password) WHERE id = %s ", (newstudent_username, newstudent_password, newstudent_id))
