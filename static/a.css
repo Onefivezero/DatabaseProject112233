@@ -18,7 +18,7 @@ hr { border: none; border-top: 1px solid lightgray; }
   font-size: 17px;
 }
 
-/* nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; } */
+nav { background: lightgray; display: flex; align-items: center; padding: 2px 2px 2px 2px; } */
 /* nav h1 { flex: auto; margin: 0; } */
 /* nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; } */
 /* nav ul  { display: flex; list-style: none; margin: 0; padding: 0; } */

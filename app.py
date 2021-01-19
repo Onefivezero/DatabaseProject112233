@@ -51,38 +51,52 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
     
-@app.route('/devtool', methods = ["POST"])
-def devtool():
-    try:
-        cur.execute("CREATE TABLE if not exists courses(CRN INT PRIMARY KEY,name VARCHAR(50) NOT NULL,day VARCHAR(10) NOT NULL,num_enrolled INT NOT NULL,max_enrolled INT NOT NULL,year_req INT NOT NULL,hours VARCHAR(10) NOT NULL, lecture_code VARCHAR(10) NOT NULL);")
-        cur.execute("CREATE TABLE if not exists students (ID INT PRIMARY KEY, name VARCHAR(50) NOT NULL, surname VARCHAR(50) NOT NULL, gpa float NOT NULL, year INT NOT NULL, FOREIGN KEY(ID) REFERENCES users(ID));")
-        cur.execute("CREATE TABLE if not exists queries(CRN INT, ID INT, status INT NOT NULL, ord INT NOT NULL, FOREIGN KEY(ID) REFERENCES students(ID), FOREIGN KEY(CRN) REFERENCES courses(CRN), PRIMARY KEY(CRN, ID));")
-        conn.commit()
-    except Exception as err:
-        print(err)
-        conn.rollback()
-    return redirect('/')
+# @app.route('/devtool', methods = ["POST"])
+# def devtool():
+    # try:
+        # cur.execute("")
+        # conn.commit()
+    # except Exception as err:
+        # print(err)
+        # conn.rollback()
+    # return redirect('/')
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
-    try:
-        newstudent_id = int(request.form['newstudent_id'])
-        newstudent_name = str(request.form['newstudent_name'])
-        newstudent_surname = str(request.form['newstudent_surname'])
-        newstudent_gpa = float(request.form['newstudent_gpa'])
-        newstudent_year = int(request.form['newstudent_year'])
-        cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],"FALSE"))
-        conn.commit()
-    except Exception as err:
-        print(err)
-        conn.rollback()
-    try:
-        cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
-        conn.commit()
-    except Exception as err:
-        print(err)
-    return redirect('/admin')
-       
+    if(request.form["student_radio"] == "add"):
+        try:
+            newstudent_id = int(request.form['newstudent_id'])
+            newstudent_name = str(request.form['newstudent_name'])
+            newstudent_surname = str(request.form['newstudent_surname'])
+            newstudent_gpa = float(request.form['newstudent_gpa'])
+            newstudent_year = int(request.form['newstudent_year'])
+            cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],"FALSE"))
+            conn.commit()
+        except Exception as err:
+            print(err)
+            conn.rollback()
+        try:
+            cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
+            conn.commit()
+        except Exception as err:
+            print(err)
+        return redirect('/admin')
+    else:
+        id = request.form["student_mod_id"] or None
+        if id == None:
+            return redirect('/admin')
+        name = request.form["student_mod_name"] or None
+        surname = request.form["student_mod_surname"] or None
+        gpa = request.form["student_mod_gpa"] or None
+        year = request.form["student_mod_year"] or None
+        try:
+            cur.execute("UPDATE students SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (name, surname, gpa, year, id,))
+            conn.commit()
+        except Exception as err:
+            print(err)
+            conn.rollback()
+        return redirect('/admin')
+        
 @app.route('/modify_student', methods = ["POST"])
 def modify_student():
     id = request.form["student_mod_id"] or None
@@ -278,8 +292,8 @@ def logout():
     
     
 if __name__ == "__main__":
-    # cur.execute("CREATE TABLE if not exists users (ID INT PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR(50) UNIQUE NOT NULL, role BOOLEAN;")
-    # cur.execute("CREATE TABLE if not exists students (ID INT PRIMARY KEY, name VARCHAR(50), surname VARCHAR(50), gpa float, year INT, CONSTRAINT fk_st FOREIGN KEY(ID) REFERENCES users(ID));")
-    # cur.execute("CREATE TABLE if not exists courses(CRN INT PRIMARY KEY,name VARCHAR(50) NOT NULL,day VARCHAR(10) NOT NULL,num_enrolled INT,max_enrolled INT,year_req INT,hours VARCHAR(10) NOT NULL, lecture_code VARCHAR(10));")
-    # cur.execute("CREATE TABLE if not exists queries(CRN INT, ID INT, status INT, ord INT, FOREIGN KEY(ID) REFERENCES students(ID), FOREIGN KEY(CRN) REFERENCES courses(CRN), PRIMARY KEY(CRN, ID));")
+    cur.execute("CREATE TABLE if not exists users (ID INT PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR(50) UNIQUE NOT NULL, role BOOLEAN;")
+    cur.execute("CREATE TABLE if not exists courses(CRN INT PRIMARY KEY,name VARCHAR(50) NOT NULL,day VARCHAR(10) NOT NULL,num_enrolled INT NOT NULL,max_enrolled INT NOT NULL,year_req INT NOT NULL,hours VARCHAR(10) NOT NULL, lecture_code VARCHAR(10) NOT NULL);")
+    cur.execute("CREATE TABLE if not exists students (ID INT PRIMARY KEY, name VARCHAR(50) NOT NULL, surname VARCHAR(50) NOT NULL, gpa float NOT NULL, year INT NOT NULL, FOREIGN KEY(ID) REFERENCES users(ID));")
+    cur.execute("CREATE TABLE if not exists queries(CRN INT, ID INT, status INT NOT NULL, ord INT NOT NULL, FOREIGN KEY(ID) REFERENCES students(ID), FOREIGN KEY(CRN) REFERENCES courses(CRN), PRIMARY KEY(CRN, ID));")
     app.run()

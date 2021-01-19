@@ -36,6 +36,7 @@
                 <p>
                     ID: <input type = "text" name = "newstudent_id" /> Username <input type = "text" name = "newstudent_username" /> Password <input type = "text" name = "newstudent_password" />
                 </p>
+                <p>User list:</p>
                 <table>
                     <tr>
                         <td>ID, username, password, adminship</td>
@@ -47,7 +48,10 @@
                 {% endfor %}
                 </table>
                 <p>
-                    Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> <br><input type = "submit" value = "submit" class="button"/>
+                    Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> 
+                    <br>Add <input type = "radio" name = "student_radio" id = "student_radio_add" value = "add">
+                    Modify  <input type = "radio" name = "student_radio" id = "student_radio_modify" value = "modify">
+                    <br><input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
                 
