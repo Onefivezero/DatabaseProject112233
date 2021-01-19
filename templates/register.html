@@ -60,11 +60,14 @@
             </form>
                 <table>
                     <tr>
-                        <td>CRN, ID, Status(True for Accepted), Order</td>
+                        <th>CRN, ID, Status(True for Accepted), Order</th>
                     </tr>   
                     {% for item in data2 %}
                     <tr>
-                        <td>{{item}}</td>
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                        <td>{{item[2]}}</td>
+                        <td>{{item[3]}}</td>
                     </tr>   
                     {% endfor %}
                 </table>
