@@ -291,5 +291,5 @@ if __name__ == "__main__":
     cur.execute("CREATE TABLE if not exists students (ID INT PRIMARY KEY, name VARCHAR(50) NOT NULL, surname VARCHAR(50) NOT NULL, gpa float NOT NULL, year INT NOT NULL, FOREIGN KEY(ID) REFERENCES users(ID));")
     cur.execute("CREATE TABLE if not exists queries(CRN INT, ID INT, status INT NOT NULL, ord INT NOT NULL, FOREIGN KEY(ID) REFERENCES students(ID), FOREIGN KEY(CRN) REFERENCES courses(CRN), PRIMARY KEY(CRN, ID));")
     cur.execute("select * from information_schema.table_constraints")
-    print(cur.fetchall())
+    print("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + cur.fetchall())
     app.run()
