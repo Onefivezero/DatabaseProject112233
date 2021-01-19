@@ -36,16 +36,6 @@
                 <p>
                     ID: <input type = "text" name = "newstudent_id" /> Username <input type = "text" name = "newstudent_username" /> Password <input type = "text" name = "newstudent_password" />
                 </p>
-                <p>User list:</p>
-                <table>
-                    <tr>
-                        <td>ID, username, password, adminship</td>
-                    </tr>   
-                {% for item in data3 %}
-                    <tr>
-                        <td>{{item}}</td>
-                    </tr>   
-                {% endfor %}
                 </table>
                 <p>
                     Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> 
@@ -53,8 +43,17 @@
                     Modify  <input type = "radio" name = "student_radio" id = "student_radio_modify" value = "modify">
                     <br><input type = "submit" value = "submit" class="button"/>
                 </p>
-            </form>
-            
+            </form>      
+            <p>User list:</p>
+            <table>
+                <tr>
+                    <th>ID, username, password, adminship</td>
+                </tr>   
+            {% for item in data3 %}
+                <tr>
+                    <td>{{item[0], item[1], item[2], item[3]}}</td>
+                </tr>   
+            {% endfor %}
         <h1>Delete student:</h1>
             <form action = "{{ url_for('delete_student') }}" method = "post">
                 <p>
