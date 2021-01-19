@@ -24,7 +24,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] {
-  background-color: #40869A;
+  background-color: #111111;
   border: none;
   color: white;
   padding: 15px 32px;
