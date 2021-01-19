@@ -176,6 +176,7 @@ def finalize():
         conn.rollback()
     last_id = 0
     time_arr = []
+    day_arr = []
     for i in data:
         crn = i[0]
         id = i[1]
@@ -193,14 +194,16 @@ def finalize():
         time = cur.fetchone()[0]
         time_start = int(time.split("-")[0])
         time_end = int(time.split("-")[1])
+        day = cur.fetchone()[1]
         condition3 = True
         for x in time_arr:
             time2_start = int(x.split("-")[0])
             time2_end = int(x.split("-")[1])
-            if not (time_start > time2_end or time_end < time2_start):
+            if (day in day_arr) and (not (time_start > time2_end or time_end < time2_start)):
                 condition3 = False
         if(condition1 and condition2 and condition3):
             time_arr.append(time)
+            day_arr.append(day)
             try:
                 cur.execute("UPDATE courses SET num_enrolled = num_enrolled + 1 WHERE crn = %s", (crn,))
                 cur.execute("UPDATE queries SET status = 1 WHERE crn = %s AND id = %s", (crn, id))
