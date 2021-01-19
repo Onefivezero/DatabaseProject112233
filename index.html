@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='a.css')}}">
+        <title>Home</title>
+    </head>
+    
+    <body>
+        <div class="navbar">
+            <nav>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                    Home
+                </a>
+                <a href="{{ url_for('login') }}" class="navbar-item">
+                    Login
+                </a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">
+                    Logout
+                </a>
+                {% if not current_user.is_anonymous and current_user.adminship %}
+                <a href="{{ url_for('admin') }}" class="navbar-item">
+                    Admin
+                </a>
+                {% endif %}
+                {% if not current_user.is_anonymous and not current_user.adminship %}
+                <a href="{{ url_for('register') }}" class="navbar-item">
+                    Register
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+    </body>
+</html>

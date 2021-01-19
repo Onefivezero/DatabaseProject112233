@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='a.css')}}">
+        <title>Register</title>
+    </head>
+    
+    <body>
+        <div class="navbar">
+            <nav>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                    Home
+                </a>
+                <a href="{{ url_for('login') }}" class="navbar-item">
+                    Login
+                </a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">
+                    Logout
+                </a>
+                {% if not current_user.is_anonymous and current_user.adminship %}
+                <a href="{{ url_for('admin') }}" class="navbar-item">
+                    Admin
+                </a>
+                {% endif %}
+                {% if not current_user.is_anonymous and not current_user.adminship %}
+                <a href="{{ url_for('register') }}" class="navbar-item">
+                    Register
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        
+        <h1> Current Program </h1>
+                <table>
+                <tr>
+                    <th>CRN</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Day</th>
+                    <th>Hours</th>
+                </tr>   
+                {% for item in data %}
+                <tr>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>
+                </tr>   
+                {% endfor %}
+            </table>
+        <h1> Register </h1>
+            <form action = "{{ url_for('addquery') }}" method = "post">
+                CRN to be added: <input type = "text" name = "crn_add" /> <input type = "submit" value = "submit" class="button"/>
+            </form>
+        <h1> Delete Query </h1>
+            <form action = "{{ url_for('deletequery') }}" method = "post">
+                CRN to be deleted: <input type = "text" name = "crn_del" /> <input type = "submit" value = "submit" class="button"/>
+            </form>
+                <table>
+                    <tr>
+                        <td>CRN, ID, Status(True for Accepted), Order</td>
+                    </tr>   
+                    {% for item in data2 %}
+                    <tr>
+                        <td>{{item}}</td>
+                    </tr>   
+                    {% endfor %}
+                </table>
+    </body>
+</html>
