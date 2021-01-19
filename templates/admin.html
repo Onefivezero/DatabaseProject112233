@@ -47,7 +47,20 @@
                     Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> <input type = "submit" value = "submit" />
                 </p>
             </form>
-                <table>
+                
+        <h1>Modify student:</h1>
+            <form action = "{{ url_for('modify_student') }}" method = "post">
+                <p>
+                    ID <input type = "text" name = "student_mod_id" /> Name <input type = "text" name = "student_mod_name" /> Surname <input type = "text" name = "student_mod_surname" /> GPA <input type = "text" name = "student_mod_gpa" /> Year <input type = "text" name = "student_mod_year" /> <input type = "submit" value = "submit" />
+                </p>
+            </form>
+        <h1>Delete student:</h1>
+            <form action = "{{ url_for('delete_student') }}" method = "post">
+                <p>
+                    CRN <input type = "text" name = "student_del_id"/><input type = "submit" value = "submit" />
+                </p>
+            </form>
+            <table>
                     <tr>
                         <td>ID, name, surname, gpa, year</td>
                     </tr>   
@@ -57,14 +70,6 @@
                     </tr>   
                 {% endfor %}
                 </table>
-                
-        <h1>Delete student:</h1>
-            <form action = "{{ url_for('delete_student') }}" method = "post">
-                <p>
-                    CRN: <input type = "text" name = "student_del_id"/><input type = "submit" value = "submit" />
-                </p>
-            </form>
-            
         <h1>Add course:</h1>
             <form action = "{{ url_for('add_course') }}" method = "post">
                 <p>
