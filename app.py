@@ -194,7 +194,7 @@ def finalize():
         time = cur.fetchone()[0]
         time_start = int(time.split("-")[0])
         time_end = int(time.split("-")[1])
-        day = cur.fetchone()[1]
+        day = time[1]
         condition3 = True
         for x in time_arr:
             time2_start = int(x.split("-")[0])
