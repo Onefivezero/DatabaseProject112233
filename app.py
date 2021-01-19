@@ -268,8 +268,6 @@ def deletequery():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    cur.execute("ALTER TABLE users DROP CONSTRAINT users_password_key")
-    conn.commit()
     if request.method == "POST":
         user = load_user(request.form['givenu'])
         if user:
