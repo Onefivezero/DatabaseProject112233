@@ -91,7 +91,7 @@ def modify_student():
     gpa = request.form["student_mod_gpa"] or None
     year = request.form["student_mod_year"] or None
     try:
-        cur.execute("UPDATE courses SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (name, surname, gpa, year,))
+        cur.execute("UPDATE students SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (name, surname, gpa, year,))
         conn.commit()
     except Exception as err:
         print(err)
