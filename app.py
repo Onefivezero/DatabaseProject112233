@@ -63,7 +63,6 @@ def index():
     
 @app.route('/add_mod_student', methods = ["POST"])
 def add_mod_student():
-    cur.execute("")
     try:
         newstudent_id = int(request.form['newstudent_id']) if request.form['newstudent_id'] else None
         newstudent_name = request.form['newstudent_name'] or None
