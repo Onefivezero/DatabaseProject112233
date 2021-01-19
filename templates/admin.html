@@ -47,20 +47,20 @@
                 {% endfor %}
                 </table>
                 <p>
-                    Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> <input type = "submit" value = "submit" />
+                    Name <input type = "text" name = "newstudent_name" /> Surname <input type = "text" name = "newstudent_surname" /> GPA <input type = "text" name = "newstudent_gpa" /> Year <input type = "text" name = "newstudent_year" /> <input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
                 
         <h1>Modify student:</h1>
             <form action = "{{ url_for('modify_student') }}" method = "post">
                 <p>
-                    ID <input type = "text" name = "student_mod_id" /> Name <input type = "text" name = "student_mod_name" /> Surname <input type = "text" name = "student_mod_surname" /> GPA <input type = "text" name = "student_mod_gpa" /> Year <input type = "text" name = "student_mod_year" /> <input type = "submit" value = "submit" />
+                    ID <input type = "text" name = "student_mod_id" /> Name <input type = "text" name = "student_mod_name" /> Surname <input type = "text" name = "student_mod_surname" /> GPA <input type = "text" name = "student_mod_gpa" /> Year <input type = "text" name = "student_mod_year" /> <input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
         <h1>Delete student:</h1>
             <form action = "{{ url_for('delete_student') }}" method = "post">
                 <p>
-                    CRN <input type = "text" name = "student_del_id"/><input type = "submit" value = "submit" />
+                    CRN <input type = "text" name = "student_del_id"/><input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
             <table>
@@ -76,19 +76,19 @@
         <h1>Add course:</h1>
             <form action = "{{ url_for('add_course') }}" method = "post">
                 <p>
-                    CRN: <input type = "text" name = "course_crn" /> Name <input type = "text" name = "course_name" /> Day <input type = "text" name = "course_day" /> Max_enrolled <input type = "text" name = "course_max" /> Year Requirement <input type = "text" name = "course_yearreq" /> Hours <input type = "text" name = "course_hours" />Course Code <input type = "text" name = "course_code" /> <input type = "submit" value = "submit" />
+                    CRN: <input type = "text" name = "course_crn" /> Name <input type = "text" name = "course_name" /> Day <input type = "text" name = "course_day" /> Max_enrolled <input type = "text" name = "course_max" /> Year Requirement <input type = "text" name = "course_yearreq" /> Hours <input type = "text" name = "course_hours" />Course Code <input type = "text" name = "course_code" /> <input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
         <h1>Modify course:</h1>
             <form action = "{{ url_for('modify_course') }}" method = "post">
                 <p>
-                    CRN: <input type = "text" name = "course_mod_crn" /> Name <input type = "text" name = "course_mod_name" /> Day <input type = "text" name = "course_mod_day" /> Max_enrolled <input type = "text" name = "course_mod_max" /> Year Requirement <input type = "text" name = "course_mod_yearreq" /> Hours <input type = "text" name = "course_mod_hours" />Course Code <input type = "text" name = "course_mod_code" /> <input type = "submit" value = "submit" />
+                    CRN: <input type = "text" name = "course_mod_crn" /> Name <input type = "text" name = "course_mod_name" /> Day <input type = "text" name = "course_mod_day" /> Max_enrolled <input type = "text" name = "course_mod_max" /> Year Requirement <input type = "text" name = "course_mod_yearreq" /> Hours <input type = "text" name = "course_mod_hours" />Course Code <input type = "text" name = "course_mod_code" /> <input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
         <h1>Delete course:</h1>
             <form action = "{{ url_for('delete_course') }}" method = "post">
                 <p>
-                    CRN: <input type = "text" name = "course_del_crn"/><input type = "submit" value = "submit" />
+                    CRN: <input type = "text" name = "course_del_crn"/><input type = "submit" value = "submit" class="button"/>
                 </p>
             </form>
                 <table>
@@ -103,11 +103,11 @@
                 </table>
         <h1>Finalize:</h1>
             <form action = "{{ url_for('finalize') }}" method = "post">
-                <input type = "submit" value = "submit" />
+                <input type = "submit" value = "submit" class="button"/>
             </form>
         <h1>Reset(Delete all queries and set enrolled numbers to zero)</h1>
             <form action = "{{ url_for('reset') }}" method = "post">
-                <input type = "submit" value = "submit" />
+                <input type = "submit" value = "submit" class="button"/>
             </form>
     </body>
 </html>
