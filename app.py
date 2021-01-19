@@ -65,12 +65,12 @@ def devtool():
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
-    newstudent_id = int(request.form['newstudent_id'])
-    newstudent_name = str(request.form['newstudent_name'])
-    newstudent_surname = str(request.form['newstudent_surname'])
-    newstudent_gpa = float(request.form['newstudent_gpa'])
-    newstudent_year = int(request.form['newstudent_year'])
     try:
+        newstudent_id = int(request.form['newstudent_id'])
+        newstudent_name = str(request.form['newstudent_name'])
+        newstudent_surname = str(request.form['newstudent_surname'])
+        newstudent_gpa = float(request.form['newstudent_gpa'])
+        newstudent_year = int(request.form['newstudent_year'])
         cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],"FALSE"))
         conn.commit()
     except Exception as err:
