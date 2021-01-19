@@ -8,28 +8,29 @@
     
     <body>
         <div class="navbar">
-            <ul>
-                <li><a href="{{ url_for('index') }}" class="navbar-item">
+            <nav>
+                <a href="{{ url_for('index') }}" class="navbar-item">
                     Home
-                </a></li>
-                <li><a href="{{ url_for('login') }}" class="navbar-item">
+                </a>
+                <a href="{{ url_for('login') }}" class="navbar-item">
                     Login
-                </a></li>
-                <li><a href="{{ url_for('logout') }}" class="navbar-item">
+                </a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">
                     Logout
-                </a></li>
+                </a>
                 {% if not current_user.is_anonymous and current_user.adminship %}
-                <li><a href="{{ url_for('admin') }}" class="navbar-item">
+                <a href="{{ url_for('admin') }}" class="navbar-item">
                     Admin
-                </a></li>
+                </a>
                 {% endif %}
                 {% if not current_user.is_anonymous and not current_user.adminship %}
-                <li><a href="{{ url_for('register') }}" class="navbar-item">
+                <a href="{{ url_for('register') }}" class="navbar-item">
                     Register
-                </a></li>
+                </a>
                 {% endif %}
-            </ul>
+            </nav>
         </div>
+        
         <form action = "{{ url_for('login') }}" method = "post">
             <p>Enter Name:</p>
             <p><input type = "text" name = "givenu" /></p>
