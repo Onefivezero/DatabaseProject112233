@@ -200,7 +200,7 @@ def finalize():
         condition3 = True
         cur.execute("SELECT name FROM courses where crn = %s", (crn,))
         lecture = cur.fetchone()[0]
-        condition4 = lecture in lecture_arr
+        condition4 = lecture not in lecture_arr
         for x in time_arr:
             time2_start = int(x[0].split("-")[0])
             time2_end = int(x[0].split("-")[1])
