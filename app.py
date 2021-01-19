@@ -63,13 +63,17 @@ def index():
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
-    newstudent_id = int(request.form['newstudent_id']) if request.form['newstudent_id'] else None
-    newstudent_name = request.form['newstudent_name'] or None
-    newstudent_surname = request.form['newstudent_surname'] or None
-    newstudent_gpa = float(request.form['newstudent_gpa']) if request.form['newstudent_gpa'] else None
-    newstudent_year = int(request.form['newstudent_year'])if request.form['newstudent_year'] else None
-    newstudent_username = request.form["newstudent_username"] or None
-    newstudent_password = request.form["newstudent_password"] or None
+    try:
+        newstudent_id = int(request.form['newstudent_id']) if request.form['newstudent_id'] else None
+        newstudent_name = request.form['newstudent_name'] or None
+        newstudent_surname = request.form['newstudent_surname'] or None
+        newstudent_gpa = float(request.form['newstudent_gpa']) if request.form['newstudent_gpa'] else None
+        newstudent_year = int(request.form['newstudent_year'])if request.form['newstudent_year'] else None
+        newstudent_username = request.form["newstudent_username"] or None
+        newstudent_password = request.form["newstudent_password"] or None
+    except Exception as err:
+        print(err)
+        return redirect("/admin")
     if id == None:
         return redirect('/admin')
     if(request.form["student_radio"] == "add"):
