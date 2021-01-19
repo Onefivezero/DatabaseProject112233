@@ -100,23 +100,6 @@ def add_mod_student():
             print(err)
             conn.rollback()
     return redirect('/admin')
-        
-# @app.route('/modify_student', methods = ["POST"])
-# def modify_student():
-    # id = request.form["student_mod_id"] or None
-    # if id == None:
-        # return redirect('/admin')
-    # name = request.form["student_mod_name"] or None
-    # surname = request.form["student_mod_surname"] or None
-    # gpa = request.form["student_mod_gpa"] or None
-    # year = request.form["student_mod_year"] or None
-    # try:
-        # cur.execute("UPDATE students SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (name, surname, gpa, year, id,))
-        # conn.commit()
-    # except Exception as err:
-        # print(err)
-        # conn.rollback()
-    # return redirect('/admin')
     
 @app.route('/delete_student', methods = ["POST"])
 def delete_student():
