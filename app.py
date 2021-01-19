@@ -183,7 +183,7 @@ def finalize():
         if(last_id != id):
             last_id = id
             time_arr = []
-            lectures_arr = []
+            lecture_arr = []
         year = i[4]
         cur.execute("SELECT year_req FROM courses WHERE crn = %s", (crn,))
         year_req = cur.fetchone()[0]
