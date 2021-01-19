@@ -116,31 +116,35 @@ def delete_student():
 @app.route('/add_course', methods = ["POST"])
 def add_course():
     try:
-        cur.execute("INSERT into courses(CRN, name, day, num_enrolled, max_enrolled, year_req, hours, lecture_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (request.form["course_crn"], request.form["course_name"],request.form["course_day"], 0, request.form["course_max"], request.form["course_yearreq"],request.form["course_hours"],request.form["course_code"],))
-        conn.commit()
+        crn = int(request.form["course_crn"])
     except Exception as err:
         print(err)
-        conn.rollback()
+        return redirect('/admin')
+    try:
+        name = request.form["course_name"] or None
+        day = request.form["course_day"] or None
+        max_enrolled = request.form["course_max"] or None
+        year_req = request.form["course_yearreq"] or None
+        hours = request.form["course_hours"] or None
+        code = request.form["course_code"] or None
+    except Exception as err:
+        print(err)
+    if(request.form["course_radio"] == "add"):
+        try:
+            cur.execute("INSERT into courses(CRN, name, day, num_enrolled, max_enrolled, year_req, hours, lecture_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (crn, name, day, 0, max_enrolled, year_req, hours, code,))
+            conn.commit()
+        except Exception as err:
+            print(err)
+            conn.rollback()
+    else:
+        try:
+            cur.execute("UPDATE courses SET name = COALESCE(%s, name), day = COALESCE(%s, day), max_enrolled = COALESCE(%s, max_enrolled), year_req =  COALESCE(%s, year_req), hours = COALESCE(%s, hours), lecture_code = COALESCE(%s, lecture_code) WHERE crn = %s ", (name, day, max_enrolled, year_req, hours, code, crn,))
+            conn.commit()
+        except Exception as err:
+            print(err)
+            conn.rollback()
     return redirect('/admin')
     
-@app.route('/modify_course', methods = ["POST"])
-def modify_course():
-    crn = request.form["course_mod_crn"] or None
-    if crn == None:
-        return redirect('/admin')
-    name = request.form["course_mod_name"] or None
-    day = request.form["course_mod_day"] or None
-    max_enrolled = request.form["course_mod_max"] or None
-    year_req = request.form["course_mod_yearreq"] or None
-    hours = request.form["course_mod_hours"] or None
-    code = request.form["course_mod_code"] or None
-    try:
-        cur.execute("UPDATE courses SET name = COALESCE(%s, name), day = COALESCE(%s, day), max_enrolled = COALESCE(%s, max_enrolled), year_req =  COALESCE(%s, year_req), hours = COALESCE(%s, hours), lecture_code = COALESCE(%s, lecture_code) WHERE crn = %s ", (name, day, max_enrolled, year_req, hours, code, crn,))
-        conn.commit()
-    except Exception as err:
-        print(err)
-        conn.rollback()
-    return redirect('/admin')
     
 @app.route('/delete_course', methods = ["POST"])
 def delete_course():
