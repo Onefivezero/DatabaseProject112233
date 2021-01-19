@@ -63,39 +63,39 @@ def index():
     
 @app.route('/add_student', methods = ["POST"])
 def add_student():
+    newstudent_id = int(request.form['newstudent_id']) or None
+    newstudent_name = str(request.form['newstudent_name']) or None
+    newstudent_surname = str(request.form['newstudent_surname']) or None
+    newstudent_gpa = float(request.form['newstudent_gpa']) or None
+    newstudent_year = int(request.form['newstudent_year']) or None
+    newstudent_username = request.form["newstudent_username"] or None
+    newstudent_password = request.form["newstudent_password"] or None
+    if id == None:
+        return redirect('/admin')
     if(request.form["student_radio"] == "add"):
         try:
-            newstudent_id = int(request.form['newstudent_id'])
-            newstudent_name = str(request.form['newstudent_name'])
-            newstudent_surname = str(request.form['newstudent_surname'])
-            newstudent_gpa = float(request.form['newstudent_gpa'])
-            newstudent_year = int(request.form['newstudent_year'])
-            cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (request.form["newstudent_id"],request.form["newstudent_username"],request.form["newstudent_surname"],"FALSE"))
-            conn.commit()
+            cur.execute("INSERT into users(ID, username, password, role) VALUES (%s, %s, %s, %s)", (newstudent_id, newstudent_username, newstudent_password, "FALSE",))
         except Exception as err:
             print(err)
-            conn.rollback()
         try:
-            cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year))
+            cur.execute("INSERT into students(ID, name, surname, gpa, year) VALUES (%s, %s, %s, %s, %s)", (newstudent_id, newstudent_name, newstudent_surname,newstudent_gpa, newstudent_year),)
             conn.commit()
         except Exception as err:
             print(err)
-        return redirect('/admin')
     else:
-        id = request.form["student_mod_id"] or None
-        if id == None:
-            return redirect('/admin')
-        name = request.form["student_mod_name"] or None
-        surname = request.form["student_mod_surname"] or None
-        gpa = request.form["student_mod_gpa"] or None
-        year = request.form["student_mod_year"] or None
         try:
-            cur.execute("UPDATE students SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (name, surname, gpa, year, id,))
+            cur.execute("UPDATE users SET username = COALESCE(%s, username), password = COALESCE(%s, password) WHERE id = %s ", (newstudent_username, newstudent_password, newstudent_id))
             conn.commit()
         except Exception as err:
             print(err)
             conn.rollback()
-        return redirect('/admin')
+        try:
+            cur.execute("UPDATE students SET name = COALESCE(%s, name), surname = COALESCE(%s, surname), gpa = COALESCE(%s, gpa), year =  COALESCE(%s, year) WHERE id = %s ", (newstudent_name, newstudent_surname, newstudent_gpa, newstudent_year, newstudent_id,))
+            conn.commit()
+        except Exception as err:
+            print(err)
+            conn.rollback()
+    return redirect('/admin')
         
 @app.route('/modify_student', methods = ["POST"])
 def modify_student():
