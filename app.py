@@ -270,7 +270,8 @@ def deletequery():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     cur.execute("select * from information_schema.table_constraints")
-    print("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + cur.fetchall())
+    print("mama mia")
+    print(cur.fetchall())
     if request.method == "POST":
         user = load_user(request.form['givenu'])
         if user:
