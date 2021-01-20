@@ -240,12 +240,11 @@ def register():
         cur.execute("SELECT * FROM queries WHERE ID = %s AND status = 1", (current_user.num,))
         protodata = cur.fetchall()
         data = []
-        query_data = []
         for i in protodata:
             try:
                 cur.execute("SELECT name, lecture_code, day, hours FROM courses WHERE crn = %s", (i[0],))
-                temp = cur.fetchone()
-                data.append(temp)
+                data = cur.fetchone()
+                data = i[0] + data
             except Exception as err:
                 print(err)
         cur.execute("SELECT * FROM queries WHERE ID = %s", (current_user.num,))
