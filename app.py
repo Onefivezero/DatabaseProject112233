@@ -169,6 +169,7 @@ def reset():
 def finalize():
     data = []
     try:
+        #Technically JOIN operation, despite not having the "JOIN" keyword.
         cur.execute("SELECT q.*, s.year, s.gpa FROM students s, queries q WHERE s.id = q.id ORDER BY s.year DESC, s.gpa DESC, q.id ASC, q.ord")
         data = cur.fetchall()
     except Exception as err:
@@ -245,7 +246,7 @@ def register():
                 data.append(i[0])
                 cur.execute("SELECT name, lecture_code, day, hours FROM courses WHERE crn = %s", (i[0],))
                 temp = list(cur.fetchone())
-                data.append(temp)
+                data += temp
                 query_data.append(temp[0])
             except Exception as err:
                 print(err)
