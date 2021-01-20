@@ -243,7 +243,10 @@ def register():
         for i in protodata:
             try:
                 cur.execute("SELECT name, lecture_code, day, hours FROM courses WHERE crn = %s", (i[0],))
-                data.append(list(cur.fetchall()))
+                temp = []
+                temp.append(i[0])
+                temp.append(list(cur.fetchall()))
+                data.append(temp)
             except Exception as err:
                 print(err)
         cur.execute("SELECT * FROM queries WHERE ID = %s", (current_user.num,))
